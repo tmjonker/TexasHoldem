@@ -16,7 +16,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.tmjonker.texasholdem.main.Main</mainClass>
+                            <mainClass>com.tmjonker.texasholdem.com.tmjonker.texasholdem.main.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

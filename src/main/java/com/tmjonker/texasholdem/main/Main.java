@@ -1,4 +1,4 @@
-package main;
+package com.tmjonker.texasholdem.main;
 
 public class Main {
 

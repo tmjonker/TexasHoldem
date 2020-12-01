@@ -1,14 +1,14 @@
-package main;
+package com.tmjonker.texasholdem.playingcards;
 
 import javafx.scene.image.Image;
-
-import java.util.Objects;
 
 public class Card {
 
     private Image cardImage;
     private int cardSuit;
     private int cardValue;
+
+    public Card() {}
 
     public Card (int cardSuit, int cardValue) {
 
