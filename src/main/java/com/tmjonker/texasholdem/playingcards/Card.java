@@ -32,8 +32,6 @@ public class Card implements Comparable<Card> {
                 cardValue == card.cardValue;
     }
 
-
-
     @Override
     public String toString() {
 
@@ -41,23 +39,23 @@ public class Card implements Comparable<Card> {
         String value = Integer.toString(cardValue);
 
         if (cardSuit == 0)
-            suit = "Spade";
+            suit = "spades";
          else if (cardSuit == 1)
-            suit = "Club";
+            suit = "clubs";
          else if (cardSuit == 2)
-            suit = "Diamond";
+            suit = "diamonds";
          else if (cardSuit == 3)
-            suit = "Heart";
+            suit = "hearts";
 
         if (cardValue > 10) {
             if (cardValue == 11)
-                value = "Jack";
+                value = "jack";
             else if (cardValue == 12)
-                value = "Queen";
+                value = "queen";
             else if (cardValue == 13)
-                value = "King";
+                value = "king";
             else if (cardValue == 14)
-                value = "Ace";
+                value = "ace";
         }
 
         return value + ":" + suit;
