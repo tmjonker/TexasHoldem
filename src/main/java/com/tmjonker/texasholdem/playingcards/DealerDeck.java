@@ -3,7 +3,7 @@ package com.tmjonker.texasholdem.playingcards;
 import java.util.*;
 
 public class DealerDeck {
-
+    
     private final int STARTING_CARD = 2;
     private final int TOTAL_CARDS_SUIT = 13;
     private final int TOTAL_SUITS = 4;
@@ -36,7 +36,7 @@ public class DealerDeck {
             }
         }
         System.out.println("The flop is: ");
-        dealtCards.forEach((cardNumber, card) -> {
+        tableCards.forEach((card) -> {
             System.out.print(card.toString() + " ");
         });
         return tableCards;

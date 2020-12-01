@@ -2,7 +2,7 @@ package com.tmjonker.texasholdem.playingcards;
 
 import javafx.scene.image.Image;
 
-public class Card {
+public class Card implements Comparable<Card> {
 
     private Image cardImage;
     private int cardSuit;
@@ -11,7 +11,6 @@ public class Card {
     public Card() {}
 
     public Card (int cardSuit, int cardValue) {
-
         this.cardSuit = cardSuit;
         this.cardValue = cardValue;
     }
@@ -32,6 +31,8 @@ public class Card {
         return cardSuit == card.cardSuit &&
                 cardValue == card.cardValue;
     }
+
+
 
     @Override
     public String toString() {
@@ -60,5 +61,15 @@ public class Card {
         }
 
         return value + ":" + suit;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+
+        if (o.cardValue == this.cardValue)
+            return 0;
+        else if (o.cardValue > this.cardValue)
+            return 1;
+        else return -1;
     }
 }
