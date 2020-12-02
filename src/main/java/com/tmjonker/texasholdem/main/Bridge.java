@@ -14,6 +14,6 @@ public class Bridge extends Application {
     public void start(Stage stage) throws Exception {
 
         GameController gameController = new GameController();
-        gameController.dealFlop();
+        gameController.startGame();
     }
 }

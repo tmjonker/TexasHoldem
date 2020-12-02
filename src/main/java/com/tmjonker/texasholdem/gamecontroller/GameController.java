@@ -1,5 +1,7 @@
 package com.tmjonker.texasholdem.gamecontroller;
 
+import com.tmjonker.texasholdem.dealer.Dealer;
+import com.tmjonker.texasholdem.player.Player;
 import com.tmjonker.texasholdem.playingcards.DealerDeck;
 
 public class GameController {
@@ -8,11 +10,15 @@ public class GameController {
 
     }
 
-    public void dealFlop() {
+    public void startGame() {
 
-        DealerDeck dealerDeck = new DealerDeck();
-        dealerDeck.generateFlop();
-        dealerDeck.generateTurnRiver();
-        dealerDeck.generateTurnRiver();
+        Player player1 = new Player();
+
+        Dealer dealer = new Dealer();
+        dealer.dealCards();
+        dealer.dealFlop();
+        dealer.dealTurn();
+        dealer.dealRiver();
+        dealer.determineWinner();
     }
 }

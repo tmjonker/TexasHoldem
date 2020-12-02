@@ -9,8 +9,8 @@ public class DealerDeck {
     private final int TOTAL_SUITS = 4;
 
     private Random random = new Random();
-    private Map<Integer, Card> dealtCards;
-    private List<Card> tableCards;
+    private List<Card> dealtCards = new ArrayList<>();
+    private List<Card> tableCards = new ArrayList<>();
 
     public DealerDeck() {
 
@@ -19,7 +19,7 @@ public class DealerDeck {
     public List<Card> generateFlop() {
 
         Random random = new Random();
-        dealtCards = new HashMap<>();
+        dealtCards = new ArrayList<>();
         tableCards = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
@@ -28,13 +28,14 @@ public class DealerDeck {
 
             Card tableCard = new Card(suit, value);
 
-            if (dealtCards.containsValue(tableCard))
+            if (dealtCards.contains(tableCard))
                 i--;
             else {
-                dealtCards.put(i, tableCard);
+                dealtCards.add(tableCard);
                 tableCards.add(tableCard);
             }
         }
+        Collections.sort(tableCards);
         System.out.println("The flop is: ");
         tableCards.forEach((card) -> {
             System.out.print(card.toString() + " ");
@@ -52,10 +53,10 @@ public class DealerDeck {
 
             dealtCard = new Card(suit, value);
 
-            if (dealtCards.containsValue(dealtCard))
+            if (dealtCards.contains(dealtCard))
                 i--;
             else {
-                dealtCards.put(i, dealtCard);
+                dealtCards.add(dealtCard);
                 tableCards.add(dealtCard);
                 System.out.print(dealtCard.toString() + " ");
             }
@@ -63,9 +64,9 @@ public class DealerDeck {
         return dealtCard;
     }
 
-    public PlayerHand dealPlayerCards() {
+    public List<Card> dealPlayerCards() {
 
-        PlayerHand playerHand = new PlayerHand();
+        List<Card> playerDealtCards = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
             int suit = random.nextInt(TOTAL_SUITS);
@@ -73,13 +74,17 @@ public class DealerDeck {
 
             Card tableCard = new Card(suit, value);
 
-            if (dealtCards.containsValue(tableCard) && i > 0)
+            if (dealtCards.contains(tableCard) && i > 0)
                 i--;
             else {
-                dealtCards.put(i, tableCard);
-                playerHand.updateHand(tableCard);
+                dealtCards.add(tableCard);
+                playerDealtCards.add(tableCard);
             }
         }
-        return playerHand;
+        return playerDealtCards;
+    }
+
+    public List<Card> getTableCards() {
+        return tableCards;
     }
 }
