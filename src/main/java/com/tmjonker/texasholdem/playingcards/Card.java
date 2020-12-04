@@ -64,9 +64,9 @@ public class Card implements Comparable<Card> {
     @Override
     public int compareTo(Card o) {
 
-        if (o.cardSuit == this.cardSuit)
+        if (o.cardValue == this.cardValue)
             return 0;
-        else if (o.cardSuit > this.cardSuit)
+        else if (o.cardValue > this.cardValue)
             return 1;
         else return -1;
     }

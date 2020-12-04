@@ -36,10 +36,10 @@ public class Player {
 
     public void determineHandResult() {
 
-        PlayerHand playerHand = new PlayerHand();
-
         totalPlayerHand.addAll(tableCards);
         totalPlayerHand.addAll(playerDealtCards);
+
+        PlayerHand playerHand = new PlayerHand(totalPlayerHand);
     }
 
     public List<Card> getTotalPlayerHand() {
