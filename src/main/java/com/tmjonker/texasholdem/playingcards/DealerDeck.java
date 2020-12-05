@@ -35,11 +35,7 @@ public class DealerDeck {
                 tableCards.add(tableCard);
             }
         }
-        Collections.sort(tableCards);
-        System.out.println("The flop is: ");
-        tableCards.forEach((card) -> {
-            System.out.print(card.toString() + " ");
-        });
+
         return tableCards;
     }
 
@@ -58,7 +54,6 @@ public class DealerDeck {
             else {
                 dealtCards.add(dealtCard);
                 tableCards.add(dealtCard);
-                System.out.print(dealtCard.toString() + " ");
             }
         }
         return dealtCard;

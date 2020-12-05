@@ -40,6 +40,8 @@ public class Player {
         totalPlayerHand.addAll(playerDealtCards);
 
         PlayerHand playerHand = new PlayerHand(totalPlayerHand);
+
+        System.out.println(playerHand.checkStraight());
     }
 
     public List<Card> getTotalPlayerHand() {

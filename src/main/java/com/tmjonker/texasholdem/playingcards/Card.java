@@ -23,6 +23,14 @@ public class Card implements Comparable<Card> {
         return cardValue;
     }
 
+    public void setCardSuit(int cardSuit) {
+        this.cardSuit = cardSuit;
+    }
+
+    public void setCardValue(int cardValue) {
+        this.cardValue = cardValue;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

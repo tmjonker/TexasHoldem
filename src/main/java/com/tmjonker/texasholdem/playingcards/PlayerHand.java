@@ -1,9 +1,6 @@
 package com.tmjonker.texasholdem.playingcards;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PlayerHand {
 
@@ -19,7 +16,7 @@ public class PlayerHand {
         TOTAL_CARD_HAND = totalPlayerHand.size();
     }
 
-    public boolean checkHand(List<Card> totalPlayerHand) {
+    public boolean checkFlush() {
 
         int runningTotal = 0;
 
@@ -31,14 +28,13 @@ public class PlayerHand {
                 if (currentCardSuit == nextCardSuit)
                     runningTotal++;
             }
-            if (runningTotal >= MAX_CARDS_HAND)
+            if (runningTotal >= 5)
                 break;
         }
-        checkRoyalFlush();
         return runningTotal >= 5;
     }
 
-    private boolean checkRoyalFlush() {
+    public boolean checkRoyalFlush() {
 
         int runningTotal = 0;
 
@@ -47,21 +43,31 @@ public class PlayerHand {
             runningTotal += currentCardValue;
         }
 
-        return runningTotal == 55;
+        return runningTotal == 60;
     }
 
-    private boolean checkStraight() {
+    public boolean checkStraight() {
 
         int runningTotal = 0;
-        for (int i = 0; i < TOTAL_CARD_HAND; i++) {
+        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
-            if (i != TOTAL_CARD_HAND - 1) {
-                int nextCardValue = totalPlayerHand.get(i+1).getCardValue();
-                if (nextCardValue == currentCardValue - 1)
-                    runningTotal += 1;
-                else break;
-            }
+            int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
+
+            if (nextCardValue == currentCardValue - 1)
+                runningTotal++;
+            else if (nextCardValue == currentCardValue) ;
+            else
+                runningTotal = 0;
+
+            if (runningTotal >= 4)
+                break;
         }
-        return runningTotal >= 5;
+
+        return runningTotal >= 4;
+    }
+
+    private void sortBySuit() {
+        totalPlayerHand.sort(Comparator.comparing(Card::getCardSuit).thenComparing(Card::getCardValue).reversed());
     }
 }
