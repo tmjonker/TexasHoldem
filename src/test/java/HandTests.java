@@ -157,9 +157,11 @@ public class HandTests {
     public void aceThroughTenShouldEqualTrue() {
 
         List<Card> testList = new ArrayList<>();
+        int flushSuit = 0;
 
         for (int i = 0; i < 7; i++) {
             Card card = new Card();
+            card.setCardSuit(flushSuit);
             testList.add(card);
         }
 
@@ -172,6 +174,17 @@ public class HandTests {
         testList.get(6).setCardValue(0);
 
         PlayerHand playerHand1 = new PlayerHand(testList);
-        assertTrue(playerHand1.checkRoyalFlush());
+        assertTrue(playerHand1.checkRoyalFlush(0));
+
+        testList.get(0).setCardValue(14);
+        testList.get(1).setCardValue(12);
+        testList.get(2).setCardValue(11);
+        testList.get(3).setCardValue(10);
+        testList.get(4).setCardValue(10);
+        testList.get(5).setCardValue(0);
+        testList.get(6).setCardValue(0);
+
+        PlayerHand playerHand2 = new PlayerHand(testList);
+        assertFalse(playerHand2.checkRoyalFlush(0));
     }
 }

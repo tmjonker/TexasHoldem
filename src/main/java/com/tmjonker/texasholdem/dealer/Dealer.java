@@ -46,7 +46,6 @@ public class Dealer {
         for (Player p : players) {
             p.setTableCards(dealerDeck.getTableCards());
             p.determineHandResult();
-            System.out.println(p.getTotalPlayerHand());
         }
     }
 }

@@ -12,34 +12,49 @@ public class PlayerHand {
 
     public PlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
-        Collections.sort(this.totalPlayerHand);
+        sortBySuit();
+        System.out.println(totalPlayerHand);
         TOTAL_CARD_HAND = totalPlayerHand.size();
     }
 
     public boolean checkFlush() {
 
         int runningTotal = 0;
+        int flushSuit = 0;
 
-        for (int i = 0; i < TOTAL_CARD_HAND; i++) {
-            for (int j = i + 1; i < TOTAL_CARD_HAND; i++) {
-                int currentCardSuit = totalPlayerHand.get(i).getCardSuit();
-                int nextCardSuit = totalPlayerHand.get(j).getCardSuit();
+        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+            int currentCardSuit = totalPlayerHand.get(i).getCardSuit();
+            int nextCardSuit = totalPlayerHand.get(i+1).getCardSuit();
 
-                if (currentCardSuit == nextCardSuit)
-                    runningTotal++;
-            }
-            if (runningTotal >= 5)
+            if (currentCardSuit == nextCardSuit)
+                runningTotal++;
+            else
+                runningTotal = 0;
+
+            if (runningTotal >= 4) {
+                flushSuit = currentCardSuit;
                 break;
+            }
         }
-        return runningTotal >= 5;
+        return runningTotal >= 4;
     }
 
-    public boolean checkRoyalFlush() {
+    public boolean checkRoyalFlush(int flushSuit) {
 
         int runningTotal = 0;
 
-        for (int i = 0; i < MAX_CARDS_HAND; i++) {
-            int currentCardValue = totalPlayerHand.get(i).getCardValue();
+        sortBySuit();
+
+        List<Card> flushHand = new ArrayList<>();
+
+        totalPlayerHand.forEach(card -> {
+            if (card.getCardSuit() == flushSuit) {
+                flushHand.add(card);
+            }
+        });
+
+        for (int i = 0; i < TOTAL_CARD_HAND; i++) {
+            int currentCardValue = flushHand.get(i).getCardValue();
             runningTotal += currentCardValue;
         }
 
@@ -49,6 +64,9 @@ public class PlayerHand {
     public boolean checkStraight() {
 
         int runningTotal = 0;
+
+        Collections.sort(this.totalPlayerHand);
+
         for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
 
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
