@@ -9,10 +9,16 @@ public class PlayerHand {
 
     private List<Card> totalPlayerHand;
 
+    private Card highCard;
+
+    private int flushSuit = 0;
+    private List<Card> flushHand = new ArrayList<>();
+
+    private List<Card> reducedHand = new ArrayList<>(totalPlayerHand);
+
 
     public PlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
-        sortBySuit();
         System.out.println(totalPlayerHand);
         TOTAL_CARD_HAND = totalPlayerHand.size();
     }
@@ -20,7 +26,8 @@ public class PlayerHand {
     public boolean checkFlush() {
 
         int runningTotal = 0;
-        int flushSuit = 0;
+
+        sortBySuit();
 
         for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
             int currentCardSuit = totalPlayerHand.get(i).getCardSuit();
@@ -31,21 +38,17 @@ public class PlayerHand {
             else
                 runningTotal = 0;
 
-            if (runningTotal >= 4) {
+            if (runningTotal == 4) {
                 flushSuit = currentCardSuit;
                 break;
             }
         }
-        return runningTotal >= 4;
+        return runningTotal == 4;
     }
 
-    public boolean checkRoyalFlush(int flushSuit) {
+    public boolean checkRoyalFlush() {
 
         int runningTotal = 0;
-
-        sortBySuit();
-
-        List<Card> flushHand = new ArrayList<>();
 
         totalPlayerHand.forEach(card -> {
             if (card.getCardSuit() == flushSuit) {
@@ -53,10 +56,15 @@ public class PlayerHand {
             }
         });
 
-        for (int i = 0; i < TOTAL_CARD_HAND; i++) {
+        Collections.sort(flushHand);
+
+        for (int i = 0; i < MAX_CARDS_HAND; i++) {
             int currentCardValue = flushHand.get(i).getCardValue();
             runningTotal += currentCardValue;
         }
+
+        Collections.sort(flushHand);
+        highCard = flushHand.get(0);
 
         return runningTotal == 60;
     }
@@ -65,24 +73,115 @@ public class PlayerHand {
 
         int runningTotal = 0;
 
-        Collections.sort(this.totalPlayerHand);
+        Collections.sort(totalPlayerHand);
 
         for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
-
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
             int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
 
             if (nextCardValue == currentCardValue - 1)
                 runningTotal++;
             else if (nextCardValue == currentCardValue) ;
-            else
-                runningTotal = 0;
+            else runningTotal = 0;
 
-            if (runningTotal >= 4)
-                break;
+            if (runningTotal == 4) break;
         }
 
-        return runningTotal >= 4;
+        highCard = totalPlayerHand.get(0);
+        return runningTotal == 4;
+    }
+    public boolean checkStraightFlush() {
+
+        int runningTotal = 0;
+
+        Collections.sort(flushHand);
+
+        for (int i = 0; i < flushHand.size() - 1; i++) {
+            int currentCardValue = flushHand.get(i).getCardValue();
+            int nextCardValue = flushHand.get(i + 1).getCardValue();
+
+            if (nextCardValue == currentCardValue - 1)
+                runningTotal++;
+            else if (nextCardValue == currentCardValue) ;
+            else runningTotal = 0;
+
+            if (runningTotal == 4) break;
+        }
+
+        return runningTotal == 4;
+    }
+
+    public boolean checkFourOfAKind() {
+
+        int runningTotal = 0;
+
+        Collections.sort(totalPlayerHand);
+
+        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+            int currentCardValue = totalPlayerHand.get(i).getCardValue();
+            int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
+
+            if (nextCardValue == currentCardValue)
+                runningTotal++;
+            else runningTotal = 0;
+
+            if (runningTotal == 3) {
+                highCard = totalPlayerHand.get(i);
+                break;
+            }
+        }
+
+        return runningTotal == 3;
+    }
+
+    public boolean checkThreeOfAKind() {
+
+        int runningTotal = 0;
+
+        Collections.sort(totalPlayerHand);
+
+        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+            int currentCardValue = totalPlayerHand.get(i).getCardValue();
+            int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
+
+            if (nextCardValue == currentCardValue)
+                runningTotal++;
+            else runningTotal = 0;
+
+            if (runningTotal == 2) {
+                reducedHand.remove(i);
+                reducedHand.remove(i+1);
+                reducedHand.remove(i-1);
+                highCard = totalPlayerHand.get(i);
+                break;
+            }
+        }
+
+        return runningTotal == 2;
+    }
+
+    public boolean checkTwoOfAKind() {
+
+        int runningTotal = 0;
+
+        Collections.sort(reducedHand);
+
+        for (int i = 0; i < reducedHand.size() -  1; i++) {
+            int currentCardValue = reducedHand.get(i).getCardValue();
+            int nextCardValue = reducedHand.get(i + 1).getCardValue();
+
+            if (nextCardValue == currentCardValue)
+                runningTotal++;
+            else runningTotal = 0;
+
+            if (runningTotal >= 1) {
+                reducedHand.remove(reducedHand.get(i));
+                reducedHand.remove(reducedHand.get(i+1));
+                break;
+            }
+        }
+
+        return runningTotal >= 1;
     }
 
     private void sortBySuit() {

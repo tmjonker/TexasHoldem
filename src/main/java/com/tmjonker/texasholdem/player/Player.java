@@ -1,6 +1,7 @@
 package com.tmjonker.texasholdem.player;
 
 import com.tmjonker.texasholdem.playingcards.Card;
+import com.tmjonker.texasholdem.playingcards.Hand;
 import com.tmjonker.texasholdem.playingcards.PlayerHand;
 
 import java.util.ArrayList;
@@ -34,14 +35,41 @@ public class Player {
         this.tableCards = tableCards;
     }
 
-    public void determineHandResult() {
+    public void createTotalPlayerHand() {
 
         totalPlayerHand.addAll(tableCards);
         totalPlayerHand.addAll(playerDealtCards);
+    }
+
+    public Hand determineHandResult() {
+
+        createTotalPlayerHand();
 
         PlayerHand playerHand = new PlayerHand(totalPlayerHand);
 
-        System.out.println(playerHand.checkStraight());
+        if (playerHand.checkFlush()) {
+            if (playerHand.checkRoyalFlush())
+                return Hand.ROYAL_FLUSH;
+            else if (playerHand.checkStraightFlush())
+                return Hand.STRAIGHT_FLUSH;
+            else if (playerHand.checkStraight())
+                return Hand.STRAIGHT;
+            else
+                return Hand.FLUSH;
+        } else if (playerHand.checkFourOfAKind()) {
+            return Hand.FOUR_OF_A_KIND;
+        } else if (playerHand.checkThreeOfAKind()) {
+            if (playerHand.checkTwoOfAKind())
+                return Hand.FULL_HOUSE;
+            else
+                return Hand.THREE_OF_A_KIND;
+        } else if (playerHand.checkTwoOfAKind()) {
+            if (playerHand.checkTwoOfAKind())
+                return Hand.TWO_PAIR;
+            else
+                return Hand.PAIR;
+        } else
+            return Hand.HIGH_CARD;
     }
 
     public List<Card> getTotalPlayerHand() {
