@@ -15,6 +15,12 @@ public class Player {
     private boolean bigBlind;
     private boolean smallBlind;
 
+    public Player() {}
+
+    public Player(List<Card> totalPlayerHand) {
+        this.totalPlayerHand = totalPlayerHand;
+    }
+
     public void placeBet() {
 
     }
@@ -51,13 +57,13 @@ public class Player {
                 return Hand.ROYAL_FLUSH;
             else if (playerHand.checkStraightFlush())
                 return Hand.STRAIGHT_FLUSH;
-            else if (playerHand.checkStraight())
-                return Hand.STRAIGHT;
             else
                 return Hand.FLUSH;
-        } else if (playerHand.checkFourOfAKind()) {
+        } else if (playerHand.checkFourOfAKind())
             return Hand.FOUR_OF_A_KIND;
-        } else if (playerHand.checkThreeOfAKind()) {
+        else if (playerHand.checkStraight())
+            return Hand.STRAIGHT;
+        else if (playerHand.checkThreeOfAKind()) {
             if (playerHand.checkTwoOfAKind())
                 return Hand.FULL_HOUSE;
             else
@@ -73,5 +79,9 @@ public class Player {
 
     public List<Card> getTotalPlayerHand() {
         return totalPlayerHand;
+    }
+
+    public void setTotalPlayerHand(List<Card> totalPlayerHand) {
+        this.totalPlayerHand = totalPlayerHand;
     }
 }

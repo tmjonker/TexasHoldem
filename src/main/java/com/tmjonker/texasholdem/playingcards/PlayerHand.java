@@ -179,6 +179,10 @@ public class PlayerHand {
         return runningTotal == 1;
     }
 
+    public void setFlushHand(List<Card> flushHand) {
+        this.flushHand = flushHand;
+    }
+
     private void sortBySuit() {
         totalPlayerHand.sort(Comparator.comparing(Card::getCardSuit).thenComparing(Card::getCardValue).reversed());
     }

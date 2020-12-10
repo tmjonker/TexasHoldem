@@ -185,6 +185,7 @@ public class HandTests {
         testList.get(6).setCardValue(2);
 
         PlayerHand playerHand1 = new PlayerHand(testList);
+        playerHand1.setFlushHand(testList);
         assertTrue(playerHand1.checkRoyalFlush());
 
         testList.get(0).setCardValue(14);
@@ -196,6 +197,7 @@ public class HandTests {
         testList.get(6).setCardValue(2);
 
         PlayerHand playerHand2 = new PlayerHand(testList);
+        playerHand2.setFlushHand(testList);
         assertFalse(playerHand2.checkRoyalFlush());
 
         testList.get(0).setCardValue(10);
@@ -207,6 +209,7 @@ public class HandTests {
         testList.get(6).setCardValue(2);
 
         PlayerHand playerHand3 = new PlayerHand(testList);
+        playerHand3.setFlushHand(testList);
         assertTrue(playerHand3.checkRoyalFlush());
     }
 
@@ -284,8 +287,8 @@ public class HandTests {
         testList.get(2).setCardValue(12);
         testList.get(3).setCardValue(11);
         testList.get(4).setCardValue(10);
-
         PlayerHand playerHand1 = new PlayerHand(testList);
+        playerHand1.setFlushHand(testList);
         assertTrue(playerHand1.checkStraightFlush());
 
         testList.get(0).setCardValue(14);
@@ -295,6 +298,7 @@ public class HandTests {
         testList.get(4).setCardValue(4);
 
         PlayerHand playerHand2 = new PlayerHand(testList);
+        playerHand2.setFlushHand(testList);
         assertFalse(playerHand2.checkStraightFlush());
 
         testList.get(0).setCardValue(6);
@@ -304,6 +308,7 @@ public class HandTests {
         testList.get(4).setCardValue(10);
 
         PlayerHand playerHand3 = new PlayerHand(testList);
+        playerHand3.setFlushHand(testList);
         assertTrue(playerHand3.checkStraightFlush());
     }
 
