@@ -33,6 +33,7 @@ public class Player {
 
     public void setTableCards(List<Card> tableCards) {
         this.tableCards = tableCards;
+        createTotalPlayerHand();
     }
 
     public void createTotalPlayerHand() {
@@ -42,8 +43,6 @@ public class Player {
     }
 
     public Hand determineHandResult() {
-
-        createTotalPlayerHand();
 
         PlayerHand playerHand = new PlayerHand(totalPlayerHand);
 

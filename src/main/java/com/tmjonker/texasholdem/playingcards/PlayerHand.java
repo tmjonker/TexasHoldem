@@ -1,6 +1,7 @@
 package com.tmjonker.texasholdem.playingcards;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlayerHand {
 
@@ -11,16 +12,15 @@ public class PlayerHand {
 
     private Card highCard;
 
-    private int flushSuit = 0;
     private List<Card> flushHand = new ArrayList<>();
 
-    private List<Card> reducedHand = new ArrayList<>(totalPlayerHand);
+    private List<Card> reducedHand;
 
 
     public PlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
-        System.out.println(totalPlayerHand);
         TOTAL_CARD_HAND = totalPlayerHand.size();
+        reducedHand = new ArrayList<>(totalPlayerHand);
     }
 
     public boolean checkFlush() {
@@ -39,22 +39,20 @@ public class PlayerHand {
                 runningTotal = 0;
 
             if (runningTotal == 4) {
-                flushSuit = currentCardSuit;
+                flushHand = totalPlayerHand
+                        .stream()
+                        .filter(card -> card.getCardSuit()==currentCardSuit)
+                        .collect(Collectors.toList());
                 break;
             }
         }
+
         return runningTotal == 4;
     }
 
     public boolean checkRoyalFlush() {
 
         int runningTotal = 0;
-
-        totalPlayerHand.forEach(card -> {
-            if (card.getCardSuit() == flushSuit) {
-                flushHand.add(card);
-            }
-        });
 
         Collections.sort(flushHand);
 
@@ -63,7 +61,6 @@ public class PlayerHand {
             runningTotal += currentCardValue;
         }
 
-        Collections.sort(flushHand);
         highCard = flushHand.get(0);
 
         return runningTotal == 60;
@@ -149,9 +146,7 @@ public class PlayerHand {
             else runningTotal = 0;
 
             if (runningTotal == 2) {
-                reducedHand.remove(i);
-                reducedHand.remove(i+1);
-                reducedHand.remove(i-1);
+                reducedHand.removeIf(card -> card.getCardValue() == currentCardValue);
                 highCard = totalPlayerHand.get(i);
                 break;
             }
@@ -170,18 +165,18 @@ public class PlayerHand {
             int currentCardValue = reducedHand.get(i).getCardValue();
             int nextCardValue = reducedHand.get(i + 1).getCardValue();
 
-            if (nextCardValue == currentCardValue)
+            if (nextCardValue == currentCardValue) {
                 runningTotal++;
-            else runningTotal = 0;
 
-            if (runningTotal >= 1) {
-                reducedHand.remove(reducedHand.get(i));
-                reducedHand.remove(reducedHand.get(i+1));
+            } else runningTotal = 0;
+
+            if (runningTotal == 1) {
+                reducedHand.removeIf(card -> card.getCardValue() == currentCardValue);
                 break;
             }
         }
 
-        return runningTotal >= 1;
+        return runningTotal == 1;
     }
 
     private void sortBySuit() {

@@ -340,6 +340,17 @@ public class HandTests {
 
         PlayerHand playerHand2 = new PlayerHand(testList);
         assertFalse(playerHand2.checkThreeOfAKind());
+
+        testList.get(0).setCardValue(9);
+        testList.get(1).setCardValue(14);
+        testList.get(2).setCardValue(9);
+        testList.get(3).setCardValue(2);
+        testList.get(4).setCardValue(10);
+        testList.get(5).setCardValue(2);
+        testList.get(6).setCardValue(2);
+
+        PlayerHand playerHand3 = new PlayerHand(testList);
+        assertTrue(playerHand3.checkThreeOfAKind());
     }
 
     @Test
@@ -400,7 +411,7 @@ public class HandTests {
         testList2.get(2).setCardValue(8);
         testList2.get(3).setCardValue(7);
 
-        PlayerHand playerHand4 = new PlayerHand(testList1);
+        PlayerHand playerHand4 = new PlayerHand(testList2);
         assertTrue(playerHand4.checkTwoOfAKind());
 
         testList2.get(0).setCardValue(7);
@@ -408,7 +419,7 @@ public class HandTests {
         testList2.get(2).setCardValue(8);
         testList2.get(3).setCardValue(7);
 
-        PlayerHand playerHand5 = new PlayerHand(testList1);
+        PlayerHand playerHand5 = new PlayerHand(testList2);
         assertTrue(playerHand5.checkTwoOfAKind());
 
         testList2.get(0).setCardValue(6);
@@ -416,7 +427,7 @@ public class HandTests {
         testList2.get(2).setCardValue(8);
         testList2.get(3).setCardValue(7);
 
-        PlayerHand playerHand6 = new PlayerHand(testList1);
+        PlayerHand playerHand6 = new PlayerHand(testList2);
         assertFalse(playerHand6.checkTwoOfAKind());
 
         testList1.get(0).setCardValue(7);

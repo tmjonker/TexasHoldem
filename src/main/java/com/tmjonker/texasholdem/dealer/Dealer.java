@@ -3,6 +3,7 @@ package com.tmjonker.texasholdem.dealer;
 import com.tmjonker.texasholdem.player.Player;
 import com.tmjonker.texasholdem.playingcards.Card;
 import com.tmjonker.texasholdem.playingcards.DealerDeck;
+import com.tmjonker.texasholdem.playingcards.Hand;
 
 import java.util.ArrayList;
 import java.util.List;
