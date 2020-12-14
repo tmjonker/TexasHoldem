@@ -6,21 +6,21 @@ import java.util.stream.Collectors;
 public class PlayerHand {
 
     private final int MAX_CARDS_HAND = 5;
-    private final int TOTAL_CARD_HAND;
-
     private List<Card> totalPlayerHand;
-
     private Card highCard;
-
     private List<Card> flushHand = new ArrayList<>();
-
     private List<Card> reducedHand;
 
 
     public PlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
-        TOTAL_CARD_HAND = totalPlayerHand.size();
+        setHighCard();
         reducedHand = new ArrayList<>(totalPlayerHand);
+    }
+
+    public void setHighCard() {
+        Collections.sort(totalPlayerHand);
+        highCard = totalPlayerHand.get(0);
     }
 
     public boolean checkFlush() {
@@ -29,7 +29,7 @@ public class PlayerHand {
 
         sortBySuit();
 
-        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+        for (int i = 0; i < totalPlayerHand.size() - 1; i++) {
             int currentCardSuit = totalPlayerHand.get(i).getCardSuit();
             int nextCardSuit = totalPlayerHand.get(i+1).getCardSuit();
 
@@ -70,28 +70,29 @@ public class PlayerHand {
 
         int runningTotal = 0;
 
-        Collections.sort(totalPlayerHand);
-
-        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+        for (int i = 0; i < totalPlayerHand.size() - 1; i++) {
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
             int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
 
             if (nextCardValue == currentCardValue - 1)
                 runningTotal++;
             else if (nextCardValue == currentCardValue) ;
-            else runningTotal = 0;
-
-            if (runningTotal == 4) break;
+            else {
+                runningTotal = 0;
+            }
+            if (runningTotal == 4) {
+                highCard = totalPlayerHand.get(i-3);
+                break;
+            }
         }
 
-        highCard = totalPlayerHand.get(0);
         return runningTotal == 4;
     }
+
     public boolean checkStraightFlush() {
 
         int runningTotal = 0;
 
-        Collections.sort(flushHand);
 
         for (int i = 0; i < flushHand.size() - 1; i++) {
             int currentCardValue = flushHand.get(i).getCardValue();
@@ -102,7 +103,10 @@ public class PlayerHand {
             else if (nextCardValue == currentCardValue) ;
             else runningTotal = 0;
 
-            if (runningTotal == 4) break;
+            if (runningTotal == 4) {
+                highCard = flushHand.get(i-3);
+                break;
+            }
         }
 
         return runningTotal == 4;
@@ -114,7 +118,7 @@ public class PlayerHand {
 
         Collections.sort(totalPlayerHand);
 
-        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+        for (int i = 0; i < totalPlayerHand.size() - 1; i++) {
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
             int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
 
@@ -137,7 +141,7 @@ public class PlayerHand {
 
         Collections.sort(totalPlayerHand);
 
-        for (int i = 0; i < TOTAL_CARD_HAND - 1; i++) {
+        for (int i = 0; i < totalPlayerHand.size() - 1; i++) {
             int currentCardValue = totalPlayerHand.get(i).getCardValue();
             int nextCardValue = totalPlayerHand.get(i + 1).getCardValue();
 
@@ -185,5 +189,9 @@ public class PlayerHand {
 
     private void sortBySuit() {
         totalPlayerHand.sort(Comparator.comparing(Card::getCardSuit).thenComparing(Card::getCardValue).reversed());
+    }
+
+    public Card getHighCard() {
+        return highCard;
     }
 }

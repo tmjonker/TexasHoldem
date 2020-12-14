@@ -14,6 +14,7 @@ public class Player {
     private List<Card> totalPlayerHand = new ArrayList<>();
     private boolean bigBlind;
     private boolean smallBlind;
+    private PlayerHand playerHand;
 
     public Player() {}
 
@@ -50,7 +51,7 @@ public class Player {
 
     public Hand determineHandResult() {
 
-        PlayerHand playerHand = new PlayerHand(totalPlayerHand);
+        playerHand = new PlayerHand(totalPlayerHand);
 
         if (playerHand.checkFlush()) {
             if (playerHand.checkRoyalFlush())
@@ -75,6 +76,10 @@ public class Player {
                 return Hand.PAIR;
         } else
             return Hand.HIGH_CARD;
+    }
+
+    public Card getHighCard() {
+        return playerHand.getHighCard();
     }
 
     public List<Card> getTotalPlayerHand() {
