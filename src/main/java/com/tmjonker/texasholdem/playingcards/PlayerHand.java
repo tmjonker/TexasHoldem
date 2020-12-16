@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 public class PlayerHand {
 
     private final int MAX_CARDS_HAND = 5;
-    private List<Card> totalPlayerHand;
+    private final List<Card> totalPlayerHand;
     private Card highCard;
     private List<Card> flushHand = new ArrayList<>();
-    private List<Card> reducedHand;
+    private final List<Card> reducedHand;
+    private int pairCounter = 0;
+    private boolean threeOfAKind = false;
 
 
     public PlayerHand(List<Card> totalPlayerHand) {
@@ -93,7 +95,6 @@ public class PlayerHand {
 
         int runningTotal = 0;
 
-
         for (int i = 0; i < flushHand.size() - 1; i++) {
             int currentCardValue = flushHand.get(i).getCardValue();
             int nextCardValue = flushHand.get(i + 1).getCardValue();
@@ -150,6 +151,7 @@ public class PlayerHand {
             else runningTotal = 0;
 
             if (runningTotal == 2) {
+                threeOfAKind = true;
                 reducedHand.removeIf(card -> card.getCardValue() == currentCardValue);
                 highCard = totalPlayerHand.get(i);
                 break;
@@ -175,10 +177,15 @@ public class PlayerHand {
             } else runningTotal = 0;
 
             if (runningTotal == 1) {
+                if (!threeOfAKind && pairCounter == 0) {
+                    highCard = reducedHand.get(i);
+                }
                 reducedHand.removeIf(card -> card.getCardValue() == currentCardValue);
                 break;
             }
         }
+
+        pairCounter++;
 
         return runningTotal == 1;
     }
