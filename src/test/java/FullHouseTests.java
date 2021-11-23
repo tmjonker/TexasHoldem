@@ -50,6 +50,14 @@ public class FullHouseTests {
             testList.add(card);
         }
 
+        testList.get(0).setCardSuit(1);
+        testList.get(1).setCardSuit(2);
+        testList.get(2).setCardSuit(3);
+        testList.get(3).setCardSuit(1);
+        testList.get(4).setCardSuit(0);
+        testList.get(5).setCardSuit(2);
+        testList.get(6).setCardSuit(1);
+
         testList.get(0).setCardValue(14);
         testList.get(1).setCardValue(10);
         testList.get(2).setCardValue(14);
