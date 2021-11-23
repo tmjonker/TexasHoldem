@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FullHouseTests {
 
     @Test
-    public void handShouldBeFullHouse() {
+    public void handShouldBeFullHouse1() {
 
         List<Card> testList = new ArrayList<>();
 
@@ -38,6 +38,17 @@ public class FullHouseTests {
 
         Player player1 = new Player(testList);
         assertEquals(Hand.FULL_HOUSE, player1.determineHandResult());
+    }
+
+    @Test
+    public void handShouldBeFullHouse2() {
+
+        List<Card> testList = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            Card card = new Card();
+            testList.add(card);
+        }
 
         testList.get(0).setCardValue(14);
         testList.get(1).setCardValue(10);

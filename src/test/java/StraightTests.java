@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StraightTests {
 
     @Test
-    public void handShouldBeStraight() {
+    public void handShouldBeStraight1() {
 
         List<Card> testList = new ArrayList<>();
 
@@ -38,6 +38,17 @@ public class StraightTests {
 
         Player player1 = new Player(testList);
         assertEquals(Hand.STRAIGHT, player1.determineHandResult());
+    }
+
+    @Test
+    public void handShouldBeStraight2() {
+
+        List<Card> testList = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            Card card = new Card();
+            testList.add(card);
+        }
 
         testList.get(0).setCardValue(10);
         testList.get(1).setCardValue(4);

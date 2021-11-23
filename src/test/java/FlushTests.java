@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FlushTests {
 
     @Test
-    public void handShouldBeFlush() {
+    public void handShouldBeFlush1() {
         List<Card> testList = new ArrayList<>();
 
         for (int i = 0; i < 7; i++) {
@@ -19,20 +19,6 @@ public class FlushTests {
             card.setCardSuit(0);
             testList.add(card);
         }
-
-        testList.get(0).setCardValue(10);
-        testList.get(1).setCardValue(9);
-        testList.get(2).setCardValue(7);
-        testList.get(3).setCardValue(14);
-        testList.get(4).setCardValue(13);
-        testList.get(5).setCardValue(11);
-        testList.get(6).setCardValue(12);
-
-        Player player1 = new Player(testList);
-        assertEquals(Hand.ROYAL_FLUSH, player1.determineHandResult());
-
-        for (Card c : testList)
-            c.setCardSuit(1);
 
         testList.get(0).setCardValue(10);
         testList.get(1).setCardValue(9);
