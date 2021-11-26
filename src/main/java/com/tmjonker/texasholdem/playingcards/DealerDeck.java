@@ -67,13 +67,13 @@ public class DealerDeck {
             int suit = random.nextInt(TOTAL_SUITS);
             int value = random.nextInt(TOTAL_CARDS_SUIT) + 2;
 
-            Card tableCard = new Card(suit, value);
+            Card playerCard = new Card(suit, value);
 
-            if (dealtCards.contains(tableCard) && i > 0)
+            if (dealtCards.contains(playerCard) && i > 0)
                 i--;
             else {
-                dealtCards.add(tableCard);
-                playerDealtCards.add(tableCard);
+                dealtCards.add(playerCard);
+                playerDealtCards.add(playerCard);
             }
         }
         return playerDealtCards;

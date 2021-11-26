@@ -217,5 +217,36 @@ public class HighCardTests {
         player1.determineHandResult();
         assertEquals(2, player1.getHighCard().getCardValue());
     }
+
+    @Test
+    public void highCardShouldBeEight() {
+
+        List<Card> testList = new ArrayList<>();
+
+        for (int i = 0; i < 7; i++) {
+            Card card = new Card();
+            testList.add(card);
+        }
+
+        testList.get(0).setCardSuit(1);
+        testList.get(1).setCardSuit(1);
+        testList.get(2).setCardSuit(1);
+        testList.get(3).setCardSuit(1);
+        testList.get(4).setCardSuit(0);
+        testList.get(5).setCardSuit(2);
+        testList.get(6).setCardSuit(1);
+
+        testList.get(0).setCardValue(6);
+        testList.get(1).setCardValue(5);
+        testList.get(2).setCardValue(2);
+        testList.get(3).setCardValue(8);
+        testList.get(4).setCardValue(7);
+        testList.get(5).setCardValue(13);
+        testList.get(6).setCardValue(3);
+
+        Player player1 = new Player(testList);
+        player1.determineHandResult();
+        assertEquals(8, player1.getHighCard().getCardValue());
+    }
 }
 

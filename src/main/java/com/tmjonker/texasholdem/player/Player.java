@@ -15,6 +15,8 @@ public class Player {
     private boolean bigBlind;
     private boolean smallBlind;
     private PlayerHand playerHand;
+    private Hand finalResultHand;
+    private int finalResultHandValue;
 
     public Player() {}
 
@@ -80,6 +82,51 @@ public class Player {
 
     public Card getHighCard() {
         return playerHand.getHighCard();
+    }
+
+    public void setFinalResultHand(Hand handResult) {
+        finalResultHand = handResult;
+
+        switch (handResult) {
+            case ROYAL_FLUSH:
+                    finalResultHandValue = 9;
+                    break;
+            case STRAIGHT_FLUSH:
+                    finalResultHandValue = 8;
+                    break;
+            case FOUR_OF_A_KIND:
+                    finalResultHandValue = 7;
+                    break;
+            case FULL_HOUSE:
+                    finalResultHandValue = 6;
+                    break;
+            case FLUSH:
+                    finalResultHandValue = 5;
+                    break;
+            case STRAIGHT:
+                    finalResultHandValue = 4;
+                    break;
+            case THREE_OF_A_KIND:
+                    finalResultHandValue = 3;
+                    break;
+            case TWO_PAIR:
+                    finalResultHandValue = 2;
+                    break;
+            case PAIR:
+                    finalResultHandValue = 1;
+                    break;
+            case HIGH_CARD:
+                    finalResultHandValue = 0;
+                    break;
+        }
+    }
+
+    public Hand getFinalResultHand() {
+        return finalResultHand;
+    }
+
+    public int getFinalResultHandValue() {
+        return finalResultHandValue;
     }
 
     public List<Card> getTotalPlayerHand() {

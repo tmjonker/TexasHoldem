@@ -42,11 +42,17 @@ public class Dealer {
         Card card = dealerDeck.generateTurnRiver();
     }
 
-    public void determineWinner() {
+    public Player determineWinner() {
+
+        Player winningPlayer;
 
         for (Player p : players) {
             p.setTableCards(dealerDeck.getTableCards());
-            p.determineHandResult();
+            p.setFinalResultHand(p.determineHandResult());
         }
+
+        List<Player> playersClone = players;
+
+        return null;
     }
 }

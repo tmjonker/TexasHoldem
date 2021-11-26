@@ -12,13 +12,13 @@ public class GameController {
 
     public void startGame() {
 
-        Player player1 = new Player();
-
         Dealer dealer = new Dealer();
         dealer.dealCards();
         dealer.dealFlop();
         dealer.dealTurn();
         dealer.dealRiver();
-        dealer.determineWinner();
+        Player winningPlayer = dealer.determineWinner();
+
+        System.out.println(winningPlayer.getFinalResultHand());
     }
 }
