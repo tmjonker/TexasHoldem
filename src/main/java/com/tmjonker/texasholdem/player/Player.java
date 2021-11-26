@@ -136,4 +136,6 @@ public class Player {
     public void setTotalPlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
     }
+
+
 }
