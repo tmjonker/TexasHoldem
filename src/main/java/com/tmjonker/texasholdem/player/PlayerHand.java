@@ -12,6 +12,7 @@ public class PlayerHand {
     private final List<Card> reducedHand;
     private int pairCounter = 0;
     private boolean threeOfAKind = false;
+    private int totalHandValue = 0;
 
 
     public PlayerHand(List<Card> totalPlayerHand) {
@@ -201,4 +202,5 @@ public class PlayerHand {
     public Card getHighCard() {
         return highCard;
     }
+
 }
