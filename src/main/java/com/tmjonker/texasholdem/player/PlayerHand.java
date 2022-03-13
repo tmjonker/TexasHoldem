@@ -1,27 +1,33 @@
-package com.tmjonker.texasholdem.playingcards;
+package com.tmjonker.texasholdem.player;
+
+import com.tmjonker.texasholdem.playingcards.Card;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PlayerHand {
 
     private final int MAX_CARDS_HAND = 5;
-    private final List<Card> totalPlayerHand;
+    private List<Card> totalPlayerHand;
     private Card highCard;
     private List<Card> flushHand = new ArrayList<>();
     private final List<Card> reducedHand;
     private int pairCounter = 0;
     private boolean threeOfAKind = false;
-    private int totalHandValue = 0;
-
 
     public PlayerHand(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
-        setHighCard();
+        Collections.sort(totalPlayerHand);
         reducedHand = new ArrayList<>(totalPlayerHand);
     }
 
-    public void setHighCard() {
+    public Card determineHighestPlayerDealtCard(List<Card> dealtCards) {
+        Collections.sort(dealtCards);
+        return dealtCards.get(0);
+    }
+
+    public void determineHighCard() {
         Collections.sort(totalPlayerHand);
         highCard = totalPlayerHand.get(0);
     }
@@ -85,28 +91,6 @@ public class PlayerHand {
             }
             if (runningTotal == 4) {
                 highCard = totalPlayerHand.get(i-3);
-                break;
-            }
-        }
-
-        return runningTotal == 4;
-    }
-
-    public boolean checkStraightFlush() {
-
-        int runningTotal = 0;
-
-        for (int i = 0; i < flushHand.size() - 1; i++) {
-            int currentCardValue = flushHand.get(i).getCardValue();
-            int nextCardValue = flushHand.get(i + 1).getCardValue();
-
-            if (nextCardValue == currentCardValue - 1)
-                runningTotal++;
-            else if (nextCardValue == currentCardValue) ;
-            else runningTotal = 0;
-
-            if (runningTotal == 4) {
-                highCard = flushHand.get(i-3);
                 break;
             }
         }

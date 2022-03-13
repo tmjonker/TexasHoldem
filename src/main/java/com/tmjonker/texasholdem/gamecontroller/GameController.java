@@ -2,7 +2,6 @@ package com.tmjonker.texasholdem.gamecontroller;
 
 import com.tmjonker.texasholdem.dealer.Dealer;
 import com.tmjonker.texasholdem.player.Player;
-import com.tmjonker.texasholdem.playingcards.DealerDeck;
 
 public class GameController {
 
@@ -19,6 +18,10 @@ public class GameController {
         dealer.dealRiver();
         Player winningPlayer = dealer.determineWinningHand();
 
-        System.out.println(winningPlayer.getFinalResultHand() + " " + winningPlayer.getHighCard());
+        System.out.println(winningPlayer.getFinalResultHand()
+                + " "
+                + winningPlayer.getHighCard() + " "
+                + winningPlayer.getName());
+        System.exit(0);
     }
 }

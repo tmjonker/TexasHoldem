@@ -2,13 +2,13 @@ package com.tmjonker.texasholdem.player;
 
 import com.tmjonker.texasholdem.playingcards.Card;
 import com.tmjonker.texasholdem.playingcards.Hand;
-import com.tmjonker.texasholdem.playingcards.PlayerHand;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
 
+    private String name;
     private List<Card> playerDealtCards;
     private List<Card> tableCards;
     private List<Card> totalPlayerHand = new ArrayList<>();
@@ -18,10 +18,20 @@ public class Player {
     private Hand finalResultHand;
     private int finalResultHandValue;
 
-    public Player() {}
+    public Player(String name) {
+        setName(name);
+    }
 
     public Player(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void placeBet() {
@@ -38,6 +48,10 @@ public class Player {
 
     public void setPlayerHand(List<Card> playerDealtCards) {
         this.playerDealtCards = playerDealtCards;
+    }
+
+    public List<Card> getPlayerDealtCards(){
+        return playerDealtCards;
     }
 
     public void setTableCards(List<Card> tableCards) {
@@ -58,7 +72,7 @@ public class Player {
         if (playerHand.checkFlush()) {
             if (playerHand.checkRoyalFlush())
                 return Hand.ROYAL_FLUSH;
-            else if (playerHand.checkStraightFlush())
+            else if (playerHand.checkStraight())
                 return Hand.STRAIGHT_FLUSH;
             else
                 return Hand.FLUSH;
@@ -76,13 +90,17 @@ public class Player {
                 return Hand.TWO_PAIR;
             else
                 return Hand.PAIR;
-        } else
+        } else {
+            playerHand.determineHighCard();
             return Hand.HIGH_CARD;
+        }
     }
 
     public Card getHighCard() {
         return playerHand.getHighCard();
     }
+
+    public Card getHighestPlayerDealtCard() { return playerHand.determineHighestPlayerDealtCard(playerDealtCards);}
 
     public void setFinalResultHand(Hand handResult) {
         finalResultHand = handResult;
@@ -137,5 +155,7 @@ public class Player {
         this.totalPlayerHand = totalPlayerHand;
     }
 
-
+    public PlayerHand getPlayerHand() {
+        return playerHand;
+    }
 }

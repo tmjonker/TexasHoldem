@@ -2,8 +2,6 @@ package com.tmjonker.texasholdem.dealer;
 
 import com.tmjonker.texasholdem.player.Player;
 import com.tmjonker.texasholdem.playingcards.Card;
-import com.tmjonker.texasholdem.playingcards.DealerDeck;
-import com.tmjonker.texasholdem.playingcards.Hand;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,7 +20,7 @@ public class Dealer {
     public void dealCards() {
 
         for (int i=0; i < NUMBER_PLAYERS; i++) {
-            Player player = new Player();
+            Player player = new Player("p"+i);
             player.setPlayerHand(dealerDeck.dealPlayerCards());
             players.add(player);
         }
@@ -48,18 +46,40 @@ public class Dealer {
         Player winningPlayer = null;
 
         for (Player p : players) {
+            System.out.print(p.getName() + " ");
             p.setTableCards(dealerDeck.getTableCards());
             p.setFinalResultHand(p.determineHandResult());
-            System.out.println(p.getFinalResultHand());
+
+            p.getTotalPlayerHand().forEach(card -> {
+                System.out.print(card + " ");
+            });
+            System.out.println(p.getFinalResultHand() + " ");
         }
 
         List<Player> playersClone = players;
-
-        playersClone.sort(Comparator.comparing(Player::getFinalResultHandValue).thenComparing(Player::getHighCard).reversed());
+        playersClone.sort(Comparator.comparing(Player::getFinalResultHandValue).reversed()
+                .thenComparing(Player::getHighCard));
 
         int winningHandValue = playersClone.get(0).getFinalResultHandValue();
-
         playersClone.removeIf(player -> (player.getFinalResultHandValue() != winningHandValue));
+
+        if (playersClone.size() > 1) {
+            for (int i = 0; i < playersClone.size() - 1; i++) {
+                if (playersClone.get(i).getHighCard().getCardValue()
+                        > playersClone.get(i+1).getHighCard().getCardValue()) {
+                    playersClone.remove(i+1);
+                    i--;
+                }
+            }
+            for (int i = 0; i < playersClone.size() - 1; i++) {
+                System.out.println(playersClone.get(i).getHighestPlayerDealtCard());
+                if (playersClone.get(i).getHighestPlayerDealtCard().getCardValue()
+                        > playersClone.get(i+1).getHighestPlayerDealtCard().getCardValue()) {
+                    playersClone.remove(i+1);
+                    i--;
+                }
+            }
+        }
 
         winningPlayer = playersClone.get(0);
         return winningPlayer;

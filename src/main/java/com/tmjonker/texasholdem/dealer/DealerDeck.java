@@ -1,4 +1,6 @@
-package com.tmjonker.texasholdem.playingcards;
+package com.tmjonker.texasholdem.dealer;
+
+import com.tmjonker.texasholdem.playingcards.Card;
 
 import java.util.*;
 

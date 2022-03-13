@@ -1,5 +1,5 @@
 import com.tmjonker.texasholdem.playingcards.Card;
-import com.tmjonker.texasholdem.playingcards.PlayerHand;
+import com.tmjonker.texasholdem.player.PlayerHand;
 import org.junit.jupiter.api.Test;
 
 
@@ -289,7 +289,7 @@ public class HandTests {
         testList.get(4).setCardValue(10);
         PlayerHand playerHand1 = new PlayerHand(testList);
         playerHand1.setFlushHand(testList);
-        assertTrue(playerHand1.checkStraightFlush());
+        assertTrue(playerHand1.checkStraight());
 
         testList.get(0).setCardValue(14);
         testList.get(1).setCardValue(10);
@@ -299,7 +299,7 @@ public class HandTests {
 
         PlayerHand playerHand2 = new PlayerHand(testList);
         playerHand2.setFlushHand(testList);
-        assertFalse(playerHand2.checkStraightFlush());
+        assertFalse(playerHand2.checkStraight());
 
         testList.get(0).setCardValue(6);
         testList.get(1).setCardValue(7);
@@ -309,7 +309,7 @@ public class HandTests {
 
         PlayerHand playerHand3 = new PlayerHand(testList);
         playerHand3.setFlushHand(testList);
-        assertTrue(playerHand3.checkStraightFlush());
+        assertTrue(playerHand3.checkStraight());
     }
 
     @Test
