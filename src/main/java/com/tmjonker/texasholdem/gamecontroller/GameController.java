@@ -18,10 +18,7 @@ public class GameController {
         dealer.dealRiver();
         Player winningPlayer = dealer.determineWinningHand();
 
-        System.out.println(winningPlayer.getFinalResultHand()
-                + " "
-                + winningPlayer.getHighCard() + " "
-                + winningPlayer.getName());
+        System.out.println(winningPlayer.getName());
         System.exit(0);
     }
 }

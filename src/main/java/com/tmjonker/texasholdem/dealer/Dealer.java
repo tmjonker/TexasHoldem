@@ -54,6 +54,8 @@ public class Dealer {
                 System.out.print(card + " ");
             });
             System.out.println(p.getFinalResultHand() + " ");
+            System.out.println(p.getPlayerDealtCards());
+            System.out.println(p.getTableCards());
         }
 
         List<Player> playersClone = players;
@@ -72,16 +74,29 @@ public class Dealer {
                 }
             }
             for (int i = 0; i < playersClone.size() - 1; i++) {
-                System.out.println(playersClone.get(i).getHighestPlayerDealtCard());
                 if (playersClone.get(i).getHighestPlayerDealtCard().getCardValue()
                         > playersClone.get(i+1).getHighestPlayerDealtCard().getCardValue()) {
                     playersClone.remove(i+1);
                     i--;
                 }
             }
+
+            for (int i = 0; i < playersClone.size() - 1; i++) {
+                if (winningHandValue == 5 || winningHandValue == 2) {
+                    if (playersClone.get(i).getPlayerHand().getPairValue()
+                            > playersClone.get(i+1).getPlayerHand().getPairValue()) {
+                        playersClone.remove(i+1);
+                        i--;
+                    }
+                }
+            }
         }
 
-        winningPlayer = playersClone.get(0);
-        return winningPlayer;
+        if (playersClone.size() > 1)
+            return new Player("Tie");
+        else {
+            winningPlayer = playersClone.get(0);
+            return winningPlayer;
+        }
     }
 }

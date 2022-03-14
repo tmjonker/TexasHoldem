@@ -14,6 +14,7 @@ public class PlayerHand {
     private List<Card> flushHand = new ArrayList<>();
     private final List<Card> reducedHand;
     private int pairCounter = 0;
+    private int pairValue = 0;
     private boolean threeOfAKind = false;
 
     public PlayerHand(List<Card> totalPlayerHand) {
@@ -162,9 +163,10 @@ public class PlayerHand {
             } else runningTotal = 0;
 
             if (runningTotal == 1) {
-                if (!threeOfAKind && pairCounter == 0) {
+                if (!threeOfAKind && pairCounter == 0)
                     highCard = reducedHand.get(i);
-                }
+                else
+                    pairValue = currentCardValue * 2;
                 reducedHand.removeIf(card -> card.getCardValue() == currentCardValue);
                 break;
             }
@@ -185,6 +187,10 @@ public class PlayerHand {
 
     public Card getHighCard() {
         return highCard;
+    }
+
+    public int getPairValue() {
+        return pairValue;
     }
 
 }

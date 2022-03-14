@@ -71,7 +71,7 @@ public class DealerDeck {
 
             Card playerCard = new Card(suit, value);
 
-            if (dealtCards.contains(playerCard) && i > 0)
+            if (dealtCards.contains(playerCard))
                 i--;
             else {
                 dealtCards.add(playerCard);

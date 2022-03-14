@@ -158,4 +158,8 @@ public class Player {
     public PlayerHand getPlayerHand() {
         return playerHand;
     }
+
+    public List<Card> getTableCards() {
+        return tableCards;
+    }
 }
