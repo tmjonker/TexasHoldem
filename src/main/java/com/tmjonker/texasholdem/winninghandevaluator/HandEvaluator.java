@@ -80,7 +80,6 @@ public class HandEvaluator {
             runningTotal += currentCardValue;
         }
 
-        System.out.println(highCard);
         highCard = flushHand.get(0);
 
         return runningTotal == 60;

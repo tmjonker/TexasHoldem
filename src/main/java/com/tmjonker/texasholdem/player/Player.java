@@ -29,7 +29,6 @@ public class Player {
     }
 
     public void setPairValue(int pairValue) {
-        System.out.println(pairValue);
         this.pairValue = pairValue;
     }
 
@@ -132,5 +131,10 @@ public class Player {
 
     public List<Card> getTotalPlayerHand() {
         return totalPlayerHand;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" + "name='" + name + '}';
     }
 }
