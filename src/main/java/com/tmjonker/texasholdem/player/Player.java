@@ -18,8 +18,6 @@ public class Player {
     private Card highCard;
     private Card highestPlayerDealtCard;
     private int pairValue = 0;
-    private boolean bigBlind;
-    private boolean smallBlind;
 
     public Player(String name) {
         setName(name);
@@ -43,18 +41,6 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void placeBet() {
-
-    }
-
-    public void check() {
-
-    }
-
-    public void fold() {
-
     }
 
     public void setPlayerHand(List<Card> playerDealtCards) {
