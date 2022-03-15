@@ -40,7 +40,6 @@ public class GameController {
         for (Player p : players) {
             handEvaluator = new HandEvaluator(p);
             handEvaluator.determineHandResult();
-            System.out.println(p.getFinalResultHand());
         }
 
         WinningHandEvaluator winningHandEvaluator = new WinningHandEvaluator(players);

@@ -1,6 +1,5 @@
 package com.tmjonker.texasholdem.winninghandevaluator;
 
-import com.tmjonker.texasholdem.dealer.DealerDeck;
 import com.tmjonker.texasholdem.player.Player;
 
 import java.util.Comparator;
@@ -22,6 +21,7 @@ public class WinningHandEvaluator {
             System.out.print(p.getName() + " ");
             HandEvaluator handEvaluator = new HandEvaluator(p);
             handEvaluator.determineHandResult();
+            p.setPairValue(handEvaluator.getPairValue());
 
             p.getTotalPlayerHand().forEach(card -> {
                 System.out.print(card + " ");
@@ -56,8 +56,8 @@ public class WinningHandEvaluator {
 
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (winningHandValue == 5 || winningHandValue == 2) {
-                    if (playersClone.get(i).getPlayerHand().getPairValue()
-                            > playersClone.get(i+1).getPlayerHand().getPairValue()) {
+                    if (playersClone.get(i).getPairValue()
+                            > playersClone.get(i+1).getPairValue()) {
                         playersClone.remove(i+1);
                         i--;
                     }

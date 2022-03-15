@@ -3,8 +3,6 @@ package com.tmjonker.texasholdem.dealer;
 import com.tmjonker.texasholdem.player.Player;
 import com.tmjonker.texasholdem.playingcards.Card;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Dealer {
@@ -28,8 +26,10 @@ public class Dealer {
 
         List<Card> flop = dealerDeck.generateFlop();
 
+        System.out.println("flop" + " " + flop);
+
         for (Player player : players) {
-            player.setTableCards(dealerDeck.getTableCards());
+            player.setFlop(dealerDeck.getTableCards());
         }
     }
 
@@ -38,7 +38,7 @@ public class Dealer {
         Card turn = dealerDeck.generateTurnRiver();
 
         for (Player player : players) {
-            player.setTableCards(dealerDeck.getTableCards());
+            player.addTableCard(turn);
         }
     }
 
@@ -47,7 +47,7 @@ public class Dealer {
         Card river = dealerDeck.generateTurnRiver();
 
         for (Player player : players) {
-            player.setTableCards(dealerDeck.getTableCards());
+            player.addTableCard(river);
         }
 
     }

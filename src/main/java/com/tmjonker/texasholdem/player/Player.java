@@ -4,6 +4,7 @@ import com.tmjonker.texasholdem.playingcards.Card;
 import com.tmjonker.texasholdem.playingcards.Hand;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player {
@@ -12,11 +13,13 @@ public class Player {
     private List<Card> playerDealtCards;
     private List<Card> tableCards;
     private List<Card> totalPlayerHand = new ArrayList<>();
-    private boolean bigBlind;
-    private boolean smallBlind;
-    private PlayerHand playerHand;
     private Hand finalResultHand;
     private int finalResultHandValue;
+    private Card highCard;
+    private Card highestPlayerDealtCard;
+    private int pairValue = 0;
+    private boolean bigBlind;
+    private boolean smallBlind;
 
     public Player(String name) {
         setName(name);
@@ -24,6 +27,14 @@ public class Player {
 
     public Player(List<Card> totalPlayerHand) {
         this.totalPlayerHand = totalPlayerHand;
+    }
+
+    public void setPairValue(int pairValue) {
+        this.pairValue = pairValue;
+    }
+
+    public int getPairValue() {
+        return pairValue;
     }
 
     public String getName() {
@@ -47,16 +58,20 @@ public class Player {
     }
 
     public void setPlayerHand(List<Card> playerDealtCards) {
+
         this.playerDealtCards = playerDealtCards;
+        Collections.sort(playerDealtCards);
+        highestPlayerDealtCard = playerDealtCards.get(0);
     }
 
-    public List<Card> getPlayerDealtCards(){
-        return playerDealtCards;
-    }
-
-    public void setTableCards(List<Card> tableCards) {
+    public void setFlop(List<Card> tableCards) {
         this.tableCards = tableCards;
         createTotalPlayerHand();
+    }
+
+    public void addTableCard(Card tableCard) {
+        tableCards.add(tableCard);
+        totalPlayerHand.add(tableCard);
     }
 
     public void createTotalPlayerHand() {
@@ -66,10 +81,16 @@ public class Player {
     }
 
     public Card getHighCard() {
-        return playerHand.getHighCard();
+        return highCard;
     }
 
-    public Card getHighestPlayerDealtCard() { return playerHand.determineHighestPlayerDealtCard(playerDealtCards);}
+    public void setHighCard(Card highCard) {
+        this.highCard = highCard;
+    }
+
+    public Card getHighestPlayerDealtCard() {
+        return highestPlayerDealtCard;
+    }
 
     public void setFinalResultHand(Hand handResult) {
         finalResultHand = handResult;
@@ -118,17 +139,5 @@ public class Player {
 
     public List<Card> getTotalPlayerHand() {
         return totalPlayerHand;
-    }
-
-    public void setTotalPlayerHand(List<Card> totalPlayerHand) {
-        this.totalPlayerHand = totalPlayerHand;
-    }
-
-    public PlayerHand getPlayerHand() {
-        return playerHand;
-    }
-
-    public List<Card> getTableCards() {
-        return tableCards;
     }
 }

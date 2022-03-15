@@ -213,6 +213,7 @@ public class HandEvaluator {
             determineHighCard();
             player.setFinalResultHand(Hand.HIGH_CARD);
         }
+        player.setHighCard(highCard);
     }
 
     public void setFlushHand(List<Card> flushHand) {
