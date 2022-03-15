@@ -9,94 +9,54 @@ import java.util.List;
 
 public class Dealer {
 
-    private final int NUMBER_PLAYERS = 8;
-    private List<Player> players = new ArrayList<>();
+
+    private List<Player> players;
     private DealerDeck dealerDeck = new DealerDeck();
 
-    public Dealer() {
-
+    public Dealer(List<Player> players) {
+        this.players = players;
     }
 
     public void dealCards() {
 
-        for (int i=0; i < NUMBER_PLAYERS; i++) {
-            Player player = new Player("p"+i);
+        for (Player player : players) {
             player.setPlayerHand(dealerDeck.dealPlayerCards());
-            players.add(player);
         }
     }
 
     public void dealFlop() {
 
         List<Card> flop = dealerDeck.generateFlop();
+
+        for (Player player : players) {
+            player.setTableCards(dealerDeck.getTableCards());
+        }
     }
 
     public void dealTurn() {
 
-        Card card = dealerDeck.generateTurnRiver();
+        Card turn = dealerDeck.generateTurnRiver();
+
+        for (Player player : players) {
+            player.setTableCards(dealerDeck.getTableCards());
+        }
     }
 
     public void dealRiver() {
 
-        Card card = dealerDeck.generateTurnRiver();
+        Card river = dealerDeck.generateTurnRiver();
+
+        for (Player player : players) {
+            player.setTableCards(dealerDeck.getTableCards());
+        }
+
     }
 
-    public Player determineWinningHand() {
+    public DealerDeck getDealerDeck() {
+        return dealerDeck;
+    }
 
-        Player winningPlayer = null;
-
-        for (Player p : players) {
-            System.out.print(p.getName() + " ");
-            p.setTableCards(dealerDeck.getTableCards());
-            p.setFinalResultHand(p.determineHandResult());
-
-            p.getTotalPlayerHand().forEach(card -> {
-                System.out.print(card + " ");
-            });
-            System.out.println(p.getFinalResultHand() + " ");
-        }
-
-        List<Player> playersClone = players;
-        playersClone.sort(Comparator.comparing(Player::getFinalResultHandValue).reversed()
-                .thenComparing(Player::getHighCard));
-
-        int winningHandValue = playersClone.get(0).getFinalResultHandValue();
-        playersClone.removeIf(player -> (player.getFinalResultHandValue() != winningHandValue));
-
-        if (playersClone.size() > 1) {
-
-            for (int i = 0; i < playersClone.size() - 1; i++) {
-                if (playersClone.get(i).getHighCard().getCardValue()
-                        > playersClone.get(i+1).getHighCard().getCardValue()) {
-                    playersClone.remove(i+1);
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < playersClone.size() - 1; i++) {
-                if (playersClone.get(i).getHighestPlayerDealtCard().getCardValue()
-                        > playersClone.get(i+1).getHighestPlayerDealtCard().getCardValue()) {
-                    playersClone.remove(i+1);
-                    i--;
-                }
-            }
-
-            for (int i = 0; i < playersClone.size() - 1; i++) {
-                if (winningHandValue == 5 || winningHandValue == 2) {
-                    if (playersClone.get(i).getPlayerHand().getPairValue()
-                            > playersClone.get(i+1).getPlayerHand().getPairValue()) {
-                        playersClone.remove(i+1);
-                        i--;
-                    }
-                }
-            }
-        }
-
-        if (playersClone.size() > 1)
-            return new Player("Tie");
-        else {
-            winningPlayer = playersClone.get(0);
-            return winningPlayer;
-        }
+    public List<Player> getPlayers() {
+        return players;
     }
 }

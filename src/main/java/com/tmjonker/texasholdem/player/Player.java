@@ -65,37 +65,6 @@ public class Player {
         totalPlayerHand.addAll(playerDealtCards);
     }
 
-    public Hand determineHandResult() {
-
-        playerHand = new PlayerHand(totalPlayerHand);
-
-        if (playerHand.checkFlush()) {
-            if (playerHand.checkRoyalFlush())
-                return Hand.ROYAL_FLUSH;
-            else if (playerHand.checkStraight())
-                return Hand.STRAIGHT_FLUSH;
-            else
-                return Hand.FLUSH;
-        } else if (playerHand.checkFourOfAKind())
-            return Hand.FOUR_OF_A_KIND;
-        else if (playerHand.checkStraight())
-            return Hand.STRAIGHT;
-        else if (playerHand.checkThreeOfAKind()) {
-            if (playerHand.checkTwoOfAKind())
-                return Hand.FULL_HOUSE;
-            else
-                return Hand.THREE_OF_A_KIND;
-        } else if (playerHand.checkTwoOfAKind()) {
-            if (playerHand.checkTwoOfAKind())
-                return Hand.TWO_PAIR;
-            else
-                return Hand.PAIR;
-        } else {
-            playerHand.determineHighCard();
-            return Hand.HIGH_CARD;
-        }
-    }
-
     public Card getHighCard() {
         return playerHand.getHighCard();
     }

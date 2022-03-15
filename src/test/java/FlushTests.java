@@ -29,6 +29,6 @@ public class FlushTests {
         testList.get(6).setCardValue(12);
 
         Player player2 = new Player(testList);
-        assertEquals(Hand.FLUSH, player2.determineHandResult());
+        assertEquals(Hand.FLUSH, player2.getFinalResultHand());
     }
 }
