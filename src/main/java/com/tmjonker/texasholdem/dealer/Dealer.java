@@ -54,8 +54,6 @@ public class Dealer {
                 System.out.print(card + " ");
             });
             System.out.println(p.getFinalResultHand() + " ");
-            System.out.println(p.getPlayerDealtCards());
-            System.out.println(p.getTableCards());
         }
 
         List<Player> playersClone = players;

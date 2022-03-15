@@ -21,7 +21,6 @@ public class DealerDeck {
     public List<Card> generateFlop() {
 
         Random random = new Random();
-        dealtCards = new ArrayList<>();
         tableCards = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
@@ -30,9 +29,9 @@ public class DealerDeck {
 
             Card tableCard = new Card(suit, value);
 
-            if (dealtCards.contains(tableCard))
+            if (dealtCards.contains(tableCard)) {
                 i--;
-            else {
+            } else {
                 dealtCards.add(tableCard);
                 tableCards.add(tableCard);
             }
