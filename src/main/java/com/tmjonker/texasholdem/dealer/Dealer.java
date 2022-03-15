@@ -64,6 +64,7 @@ public class Dealer {
         playersClone.removeIf(player -> (player.getFinalResultHandValue() != winningHandValue));
 
         if (playersClone.size() > 1) {
+
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (playersClone.get(i).getHighCard().getCardValue()
                         > playersClone.get(i+1).getHighCard().getCardValue()) {
@@ -71,6 +72,7 @@ public class Dealer {
                     i--;
                 }
             }
+
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (playersClone.get(i).getHighestPlayerDealtCard().getCardValue()
                         > playersClone.get(i+1).getHighestPlayerDealtCard().getCardValue()) {
