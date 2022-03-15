@@ -17,6 +17,7 @@ public class Player {
     private int finalResultHandValue;
     private Card highCard;
     private Card highestPlayerDealtCard;
+    private Card lowestPlayerDealtCard;
     private int pairValue = 0;
 
     public Player(String name) {
@@ -28,6 +29,7 @@ public class Player {
     }
 
     public void setPairValue(int pairValue) {
+        System.out.println(pairValue);
         this.pairValue = pairValue;
     }
 
@@ -48,6 +50,7 @@ public class Player {
         this.playerDealtCards = playerDealtCards;
         Collections.sort(playerDealtCards);
         highestPlayerDealtCard = playerDealtCards.get(0);
+        lowestPlayerDealtCard = playerDealtCards.get(1);
     }
 
     public void setFlop(List<Card> tableCards) {
@@ -76,6 +79,10 @@ public class Player {
 
     public Card getHighestPlayerDealtCard() {
         return highestPlayerDealtCard;
+    }
+
+    public Card getLowestPlayerDealtCard() {
+        return lowestPlayerDealtCard;
     }
 
     public void setFinalResultHand(Hand handResult) {

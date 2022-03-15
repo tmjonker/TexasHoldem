@@ -37,6 +37,8 @@ public class Dealer {
 
         Card turn = dealerDeck.generateTurnRiver();
 
+        System.out.println("turn" + " " + turn);
+
         for (Player player : players) {
             player.addTableCard(turn);
         }
@@ -45,6 +47,8 @@ public class Dealer {
     public void dealRiver() {
 
         Card river = dealerDeck.generateTurnRiver();
+
+        System.out.println("river" + " " + river);
 
         for (Player player : players) {
             player.addTableCard(river);

@@ -40,16 +40,16 @@ public class WinningHandEvaluator {
 
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (playersClone.get(i).getHighCard().getCardValue()
-                        > playersClone.get(i+1).getHighCard().getCardValue()) {
-                    playersClone.remove(i+1);
+                        > playersClone.get(i + 1).getHighCard().getCardValue()) {
+                    playersClone.remove(i + 1);
                     i--;
                 }
             }
 
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (playersClone.get(i).getHighestPlayerDealtCard().getCardValue()
-                        > playersClone.get(i+1).getHighestPlayerDealtCard().getCardValue()) {
-                    playersClone.remove(i+1);
+                        > playersClone.get(i + 1).getHighestPlayerDealtCard().getCardValue()) {
+                    playersClone.remove(i + 1);
                     i--;
                 }
             }
@@ -57,19 +57,25 @@ public class WinningHandEvaluator {
             for (int i = 0; i < playersClone.size() - 1; i++) {
                 if (winningHandValue == 5 || winningHandValue == 2) {
                     if (playersClone.get(i).getPairValue()
-                            > playersClone.get(i+1).getPairValue()) {
-                        playersClone.remove(i+1);
+                            > playersClone.get(i + 1).getPairValue()) {
+                        playersClone.remove(i + 1);
                         i--;
                     }
+                }
+            }
+
+            for (int i = 0; i < playersClone.size() - 1; i++) {
+                if (playersClone.get(i).getLowestPlayerDealtCard().getCardValue()
+                        > playersClone.get(i + 1).getLowestPlayerDealtCard().getCardValue()) {
+                    playersClone.remove(i + 1);
+                    i--;
                 }
             }
         }
 
         if (playersClone.size() > 1)
-            return new Player("Tie");
-        else {
-            winningPlayer = playersClone.get(0);
-            return winningPlayer;
-        }
+            return new Player("tie");
+        else
+            return winningPlayer = playersClone.get(0);
     }
 }
