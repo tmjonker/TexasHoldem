@@ -54,8 +54,7 @@ public class WinningHandEvaluator {
         if (playersClone.size() > 1)
             return new Player("\ntie");
         else
-            System.out.print("\nWinning Player: ");
-        return playersClone.get(0);
+            return playersClone.get(0);
     }
 
     private void checkHighCard(List<Player> playersClone) {
@@ -64,6 +63,10 @@ public class WinningHandEvaluator {
             for (int j = 1; j < playersClone.size(); j++) {
                 if (playersClone.get(j).getHighCard().getCardValue() < tempHighest) {
                     playersClone.remove(j);
+                    i--;
+                    break;
+                } else {
+                    playersClone.remove(i);
                     i--;
                     break;
                 }
@@ -79,6 +82,10 @@ public class WinningHandEvaluator {
                     playersClone.remove(j);
                     i--;
                     break;
+                } else {
+                    playersClone.remove(i);
+                    i--;
+                    break;
                 }
             }
         }
@@ -90,6 +97,10 @@ public class WinningHandEvaluator {
             for (int j = 1; j < playersClone.size(); j++) {
                 if (playersClone.get(j).getLowestPlayerDealtCard().getCardValue() < tempHighest) {
                     playersClone.remove(j);
+                    i--;
+                    break;
+                } else {
+                    playersClone.remove(i);
                     i--;
                     break;
                 }
@@ -104,6 +115,10 @@ public class WinningHandEvaluator {
             for (int j = 1; j < playersClone.size(); j++) {
                 if (playersClone.get(j).getPairValue() < tempHighest) {
                     playersClone.remove(j);
+                    i--;
+                    break;
+                } else {
+                    playersClone.remove(i);
                     i--;
                     break;
                 }

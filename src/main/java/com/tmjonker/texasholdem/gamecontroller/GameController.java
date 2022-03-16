@@ -46,6 +46,7 @@ public class GameController {
 
         Player winningPlayer = winningHandEvaluator.determineWinningHand();
 
+        System.out.print("\nWinning Player: ");
         System.out.println(winningPlayer.getName());
         System.exit(0);
     }
