@@ -15,8 +15,6 @@ public class WinningHandEvaluator {
 
     public Player determineWinningHand() {
 
-        Player winningPlayer = null;
-
         for (Player p : players) {
             System.out.print(p.getName() + " ");
             HandEvaluator handEvaluator = new HandEvaluator(p);
@@ -38,60 +36,79 @@ public class WinningHandEvaluator {
         playersClone.removeIf(player -> (player.getFinalResultHandValue() != winningHandValue));
 
         if (playersClone.size() > 1) {
-
-            for (int i = 0; i < playersClone.size(); i++) {
-                int tempHighest = playersClone.get(i).getHighCard().getCardValue();
-                for (int j = 1; j < playersClone.size(); j++) {
-                    if (playersClone.get(j).getHighCard().getCardValue() < tempHighest) {
-                        playersClone.remove(j);
-                        i--;
-                        break;
-                    }
-                }
+            checkHighCard(playersClone);
+        }
+        if (playersClone.size() > 1) {
+            checkHighestPlayerDealtCard(playersClone);
+        }
+        if (playersClone.size() > 1) {
+            checkLowestPlayerDealtCard(playersClone);
+        }
+        if (playersClone.size() > 1) {
+            if (winningHandValue == 5 || winningHandValue == 2) {
+                checkPairValue(playersClone);
             }
+        }
+        System.out.println("\n" + playersClone);
 
-            for (int i = 0; i < playersClone.size(); i++) {
-                int tempHighest = playersClone.get(i).getHighestPlayerDealtCard().getCardValue();
-                for (int j = 1; j < playersClone.size(); j++) {
-                    if (playersClone.get(j).getHighestPlayerDealtCard().getCardValue() < tempHighest) {
-                        playersClone.remove(j);
-                        i--;
-                        break;
-                    }
-                }
-            }
+        if (playersClone.size() > 1)
+            return new Player("\ntie");
+        else
+            System.out.print("\nWinning Player: ");
+        return playersClone.get(0);
+    }
 
-            for (int i = 0; i < playersClone.size(); i++) {
-                int tempHighest = playersClone.get(i).getLowestPlayerDealtCard().getCardValue();
-                for (int j = 1; j < playersClone.size(); j++) {
-                    if (playersClone.get(j).getLowestPlayerDealtCard().getCardValue() < tempHighest) {
-                        playersClone.remove(j);
-                        i--;
-                        break;
-                    }
-                }
-            }
-
-            for (int i = 0; i < playersClone.size(); i++) {
-                if (winningHandValue == 5 || winningHandValue == 2) {
-                    int tempHighest = playersClone.get(i).getPairValue();
-                    for (int j = 1; j < playersClone.size(); j++) {
-                        if (playersClone.get(j).getPairValue() < tempHighest) {
-                            playersClone.remove(j);
-                            i--;
-                            break;
-                        }
-                    }
+    private void checkHighCard(List<Player> playersClone) {
+        for (int i = 0; i < playersClone.size(); i++) {
+            int tempHighest = playersClone.get(i).getHighCard().getCardValue();
+            for (int j = 1; j < playersClone.size(); j++) {
+                if (playersClone.get(j).getHighCard().getCardValue() < tempHighest) {
+                    playersClone.remove(j);
+                    i--;
+                    break;
                 }
             }
         }
+    }
 
-        System.out.println(playersClone);
+    private void checkHighestPlayerDealtCard(List<Player> playersClone) {
+        for (int i = 0; i < playersClone.size(); i++) {
+            int tempHighest = playersClone.get(i).getHighestPlayerDealtCard().getCardValue();
+            for (int j = 1; j < playersClone.size(); j++) {
+                if (playersClone.get(j).getHighestPlayerDealtCard().getCardValue() < tempHighest) {
+                    playersClone.remove(j);
+                    i--;
+                    break;
+                }
+            }
+        }
+    }
 
-        if (playersClone.size() > 1)
-            return new Player("tie");
-        else
-            System.out.print("\nWinning Player: ");
-            return winningPlayer = playersClone.get(0);
+    private void checkLowestPlayerDealtCard(List<Player> playersClone) {
+        for (int i = 0; i < playersClone.size(); i++) {
+            int tempHighest = playersClone.get(i).getLowestPlayerDealtCard().getCardValue();
+            for (int j = 1; j < playersClone.size(); j++) {
+                if (playersClone.get(j).getLowestPlayerDealtCard().getCardValue() < tempHighest) {
+                    playersClone.remove(j);
+                    i--;
+                    break;
+                }
+            }
+        }
+    }
+
+    private void checkPairValue(List<Player> playersClone) {
+        for (int i = 0; i < playersClone.size(); i++) {
+
+            int tempHighest = playersClone.get(i).getPairValue();
+            for (int j = 1; j < playersClone.size(); j++) {
+                if (playersClone.get(j).getPairValue() < tempHighest) {
+                    playersClone.remove(j);
+                    i--;
+                    break;
+                }
+            }
+        }
     }
 }
+
