@@ -55,12 +55,4 @@ public class Dealer {
         }
 
     }
-
-    public DealerDeck getDealerDeck() {
-        return dealerDeck;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
 }

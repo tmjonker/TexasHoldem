@@ -1,7 +1,6 @@
 package com.tmjonker.texasholdem.winninghandevaluator;
 
 import com.tmjonker.texasholdem.player.Player;
-import com.tmjonker.texasholdem.player.PlayerHand;
 import com.tmjonker.texasholdem.playingcards.Card;
 import com.tmjonker.texasholdem.playingcards.Hand;
 
@@ -11,7 +10,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/*
+Evaluates each hand to determine what hand each player actually has.
+ */
 public class HandEvaluator {
 
     private final int MAX_CARDS_HAND = 5;
@@ -30,11 +31,6 @@ public class HandEvaluator {
         totalPlayerHand = player.getTotalPlayerHand();
         Collections.sort(totalPlayerHand);
         reducedHand = new ArrayList<>(totalPlayerHand);
-    }
-
-    public Card determineHighestPlayerDealtCard(List<Card> dealtCards) {
-        Collections.sort(dealtCards);
-        return dealtCards.get(0);
     }
 
     public void determineHighCard() {
@@ -216,23 +212,11 @@ public class HandEvaluator {
         player.setHighCard(highCard);
     }
 
-    public void setFlushHand(List<Card> flushHand) {
-        this.flushHand = flushHand;
-    }
-
     private void sortBySuit() {
         totalPlayerHand.sort(Comparator.comparing(Card::getCardSuit).thenComparing(Card::getCardValue).reversed());
     }
 
-    public Card getHighCard() {
-        return highCard;
-    }
-
     public int getPairValue() {
         return pairValue;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 }
