@@ -13,20 +13,22 @@ public class WinningHandEvaluator {
         this.players = players;
     }
 
+    // Determines which player has the winning hand in the simulated game.
     public Player determineWinningHand() {
 
-        for (Player p : players) {
-            System.out.print(p.getName() + " ");
-            HandEvaluator handEvaluator = new HandEvaluator(p);
-            handEvaluator.determineHandResult();
-            p.setPairValue(handEvaluator.getPairValue());
+        players.forEach(p -> {
+                    System.out.print(p.getName() + " ");
+                    HandEvaluator handEvaluator = new HandEvaluator(p);
+                    handEvaluator.determineHandResult();
+                    p.setPairValue(handEvaluator.getPairValue());
 
-            p.getTotalPlayerHand().forEach(card -> {
-                System.out.print(card + " ");
-            });
-            System.out.println(p.getFinalResultHand() + "        " + "highest deal: " + p.getHighestPlayerDealtCard() +
-                    "      " + "lowest deal: " + p.getLowestPlayerDealtCard());
-        }
+                    p.getTotalPlayerHand().forEach(card -> {
+                        System.out.print(card + " ");
+                    });
+
+                    System.out.println(p.getFinalResultHand() + "        " + "highest deal: " + p.getHighestPlayerDealtCard() +
+                            "      " + "lowest deal: " + p.getLowestPlayerDealtCard());
+                });
 
         List<Player> playersClone = players;
         playersClone.sort(Comparator.comparing(Player::getFinalResultHandValue).reversed()
@@ -35,6 +37,11 @@ public class WinningHandEvaluator {
         int winningHandValue = playersClone.get(0).getFinalResultHandValue();
         playersClone.removeIf(player -> (player.getFinalResultHandValue() != winningHandValue));
 
+        /* Filters out losers in the event of a tie involving multiple players having the same winning hand.
+         It first evaluates all tied players high cards, then if theres still a tie, it checks the highest card dealt
+         to a player, if there's still a tie, then it checks the lowest card dealt to each player.  It also checks the
+         value of pairs if there's a tie between multiple players who have a full house or two pair.
+         */
         if (playersClone.size() > 1) {
             checkHighCard(playersClone);
         }
@@ -57,6 +64,7 @@ public class WinningHandEvaluator {
             return playersClone.get(0);
     }
 
+    // Evaluates high card in each player's total deck.
     private void checkHighCard(List<Player> playersClone) {
         for (int i = 0; i < playersClone.size(); i++) {
             int tempHighest = playersClone.get(i).getHighCard().getCardValue();
@@ -74,6 +82,7 @@ public class WinningHandEvaluator {
         }
     }
 
+    // Evaluates highest card of the two that were dealt to each individual player.
     private void checkHighestPlayerDealtCard(List<Player> playersClone) {
         for (int i = 0; i < playersClone.size(); i++) {
             int tempHighest = playersClone.get(i).getHighestPlayerDealtCard().getCardValue();
@@ -91,6 +100,7 @@ public class WinningHandEvaluator {
         }
     }
 
+    //Evaluates the lower of the two cards that was dealt to each individual player.
     private void checkLowestPlayerDealtCard(List<Player> playersClone) {
         for (int i = 0; i < playersClone.size(); i++) {
             int tempHighest = playersClone.get(i).getLowestPlayerDealtCard().getCardValue();
@@ -108,6 +118,7 @@ public class WinningHandEvaluator {
         }
     }
 
+    //Evaluates the pair value if there is a tie between multiple players with a full house or two pair.
     private void checkPairValue(List<Player> playersClone) {
         for (int i = 0; i < playersClone.size(); i++) {
 

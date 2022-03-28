@@ -36,11 +36,10 @@ public class GameController {
         dealer.dealTurn();
         dealer.dealRiver();
 
-        HandEvaluator handEvaluator;
-        for (Player p : players) {
-            handEvaluator = new HandEvaluator(p);
+        players.forEach(p -> {
+            HandEvaluator handEvaluator = new HandEvaluator(p);
             handEvaluator.determineHandResult();
-        }
+        });
 
         WinningHandEvaluator winningHandEvaluator = new WinningHandEvaluator(players);
 
