@@ -56,7 +56,6 @@ public class WinningHandEvaluator {
                 checkPairValue(playersClone);
             }
         }
-        System.out.println("\n" + playersClone);
 
         if (playersClone.size() > 1)
             return new Player("\ntie");
@@ -123,16 +122,13 @@ public class WinningHandEvaluator {
         for (int i = 0; i < playersClone.size(); i++) {
 
             int tempHighest = playersClone.get(i).getPairValue();
-            for (int j = 1; j < playersClone.size(); j++) {
-                if (playersClone.get(j).getPairValue() < tempHighest) {
-                    playersClone.remove(j);
-                    i--;
-                    break;
+            if (playersClone.size() > i + 1) {
+                if (playersClone.get(i+1).getPairValue() < tempHighest) {
+                    playersClone.remove(i+1);
                 } else {
                     playersClone.remove(i);
-                    i--;
-                    break;
                 }
+                i--;
             }
         }
     }
