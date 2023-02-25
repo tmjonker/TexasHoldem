@@ -4,7 +4,7 @@ import com.tmjonker.texasholdem.playingcards.Card;
 
 import java.util.*;
 
-public class DealerDeck {
+public class DealerAction {
     
     private final int STARTING_CARD = 2;
     private final int TOTAL_CARDS_SUIT = 13;
@@ -14,7 +14,7 @@ public class DealerDeck {
     private List<Card> dealtCards = new ArrayList<>();
     private List<Card> tableCards = new ArrayList<>();
 
-    public DealerDeck() {
+    public DealerAction() {
 
     }
 

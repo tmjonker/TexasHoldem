@@ -9,7 +9,7 @@ public class Dealer {
 
 
     private List<Player> players;
-    private DealerDeck dealerDeck = new DealerDeck();
+    private DealerAction dealerAction = new DealerAction();
 
     public Dealer(List<Player> players) {
         this.players = players;
@@ -18,24 +18,24 @@ public class Dealer {
     public void dealCards() {
 
         for (Player player : players) {
-            player.setPlayerHand(dealerDeck.dealPlayerCards());
+            player.setPlayerHand(dealerAction.dealPlayerCards());
         }
     }
 
     public void dealFlop() {
 
-        List<Card> flop = dealerDeck.generateFlop();
+        List<Card> flop = dealerAction.generateFlop();
 
         System.out.println("flop" + " " + flop);
 
         for (Player player : players) {
-            player.setFlop(dealerDeck.getTableCards());
+            player.setFlop(dealerAction.getTableCards());
         }
     }
 
     public void dealTurn() {
 
-        Card turn = dealerDeck.generateTurnRiver();
+        Card turn = dealerAction.generateTurnRiver();
 
         System.out.println("turn" + " " + turn);
 
@@ -46,7 +46,7 @@ public class Dealer {
 
     public void dealRiver() {
 
-        Card river = dealerDeck.generateTurnRiver();
+        Card river = dealerAction.generateTurnRiver();
 
         System.out.println("river" + " " + river + "\n");
 

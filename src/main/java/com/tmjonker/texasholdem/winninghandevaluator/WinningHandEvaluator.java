@@ -58,7 +58,7 @@ public class WinningHandEvaluator {
         }
 
         if (playersClone.size() > 1)
-            return new Player("\ntie");
+            return new Player("tie");
         else
             return playersClone.get(0);
     }
@@ -72,7 +72,7 @@ public class WinningHandEvaluator {
                     playersClone.remove(j);
                     i--;
                     break;
-                } else {
+                } else if (playersClone.get(j).getHighCard().getCardValue() > tempHighest) {
                     playersClone.remove(i);
                     i--;
                     break;
@@ -90,7 +90,7 @@ public class WinningHandEvaluator {
                     playersClone.remove(j);
                     i--;
                     break;
-                } else {
+                } else if (playersClone.get(j).getHighestPlayerDealtCard().getCardValue() > tempHighest) {
                     playersClone.remove(i);
                     i--;
                     break;
@@ -108,7 +108,7 @@ public class WinningHandEvaluator {
                     playersClone.remove(j);
                     i--;
                     break;
-                } else {
+                } else if (playersClone.get(j).getLowestPlayerDealtCard().getCardValue() > tempHighest) {
                     playersClone.remove(i);
                     i--;
                     break;
@@ -125,10 +125,11 @@ public class WinningHandEvaluator {
             if (playersClone.size() > i + 1) {
                 if (playersClone.get(i+1).getPairValue() < tempHighest) {
                     playersClone.remove(i+1);
-                } else {
+                    i--;
+                } else if (playersClone.get(i+1).getPairValue() > tempHighest) {
                     playersClone.remove(i);
+                    i--;
                 }
-                i--;
             }
         }
     }
